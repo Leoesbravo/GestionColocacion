@@ -11,6 +11,8 @@ namespace PL.Controllers
         // GET: Usuario
         public ActionResult Login()
         {
+
+
             return View();
         }
         public ActionResult AlumnoGetById(int idUsuario)
