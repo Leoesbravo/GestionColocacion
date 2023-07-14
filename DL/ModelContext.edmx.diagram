@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a910a041e3d9470dbbc9fdd94c40d33d" Name="Diagram1" ZoomLevel="109">
+        <EntityTypeShape EntityType="GestionEntrenamientoModel.Grupo" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionEntrenamientoModel.Rol" Width="1.5" PointX="2.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionEntrenamientoModel.Status" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionEntrenamientoModel.TipoGrupo" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionEntrenamientoModel.Usuario" Width="1.5" PointX="5" PointY="4.875" IsExpanded="true" />
+        <AssociationConnector Association="GestionEntrenamientoModel.FK__Grupo__IdStatus__24927208" ManuallyRouted="false" />
+        <AssociationConnector Association="GestionEntrenamientoModel.FK__Grupo__IdTipoGru__173876EA" ManuallyRouted="false" />
+        <AssociationConnector Association="GestionEntrenamientoModel.FK__Usuario__IdRol__1ED998B2" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="GestionEntrenamientoModel.GrupoCoach" Width="1.5" PointX="7.25" PointY="6.25" />
+        <EntityTypeShape EntityType="GestionEntrenamientoModel.UsuarioGrupo" Width="1.5" PointX="7.25" PointY="3.25" />
+        <AssociationConnector Association="GestionEntrenamientoModel.FK__GrupoCoac__IdGru__2E1BDC42" />
+        <AssociationConnector Association="GestionEntrenamientoModel.FK__UsuarioGr__IdGru__2B3F6F97" />
+        <AssociationConnector Association="GestionEntrenamientoModel.FK__GrupoCoac__IdCoa__2F10007B" />
+        <AssociationConnector Association="GestionEntrenamientoModel.FK__UsuarioGr__IdUsu__2A4B4B5E" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

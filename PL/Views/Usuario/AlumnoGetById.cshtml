@@ -1,0 +1,44 @@
+﻿@model ML.Usuario
+@{
+    ViewBag.Title = "AlumnoGetById";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-6">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/Microsoft_.NET_logo.svg" class="img-fluid" alt="image" width="200px" height="200px" />
+        </div>
+
+
+        <div class="col-md-6 d-flex align-items-center">
+            <div class="text-center">
+                <p><h2>@Model.Nombre @Model.ApellidoPaterno</h2> - @Model.Grupo.TipoGrupo.Nombre @Model.Grupo.Nombre</p>
+                <hr />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="text-center">
+                            <h5>Ingreso:</h5>
+                            <h5>Salida:</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-center">
+                            <h5>@Model.Grupo.FechaIngreso</h5>
+                            <h5>@Model.Grupo.FechaEgreso</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="btn-group d-flex" role="group" aria-label="Button group with nested dropdown">
+        <a class="btn btn-dark" href="@Url.Action("GetAlumnosByGrupo", "Evaluaciones")"><i class="fa-solid fa-file-lines"></i> Evaluaciones</a>
+        <a class="btn btn-dark" href="@Url.Action("GetFormatoById", "Evaluaciones", new {idAlumno = Model.IdUsuario})"><i class="fa-solid fa-comments"></i> Formatos</a>
+        <button type="button" class="btn btn-dark"><i class="fa-solid fa-user-clock"></i> Asistencia</button>
+        <button type="button" class="btn btn-dark"><i class="fa-solid fa-flag"></i> Reportes</button>
+    </div>
+</div>
+

@@ -1,0 +1,88 @@
+﻿@model ML.Grupo
+@{
+    ViewBag.Title = "GetAlumnosByGrupo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        @if (Model.TipoGrupo.IdTipoGrupo == 3)
+        {
+            <div class="col-md-6">
+                <img src="https://logodownload.org/wp-content/uploads/2021/11/ios-logo-0.png" class="img-fluid" alt="image" width="200px" height="200px" />
+            </div>
+        }
+        else
+        {
+            <div class="col-md-6">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/Microsoft_.NET_logo.svg" class="img-fluid" alt="image" width="200px" height="200px" />
+            </div>
+        }
+
+        <div class="col-md-6 d-flex align-items-center">
+            <div class="text-center">
+                <p><h2>@Model.TipoGrupo.Nombre @Model.Nombre</h2> - En @Model.Status.Nombre</p>
+                <hr />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="text-center">
+                            <h5>Ingreso:</h5>
+                            <h5>Salida:</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-center">
+                            <h5>@Model.FechaIngreso</h5>
+                            <h5>@Model.FechaEgreso</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="btn-group d-flex" role="group" aria-label="Button group with nested dropdown">
+        <button type="button" class="btn btn-dark"><i class="fa-solid fa-file-lines"></i>  Evaluaciones</button>
+        <button type="button" class="btn btn-dark"><i class="fa-solid fa-comments"></i> Formatos</button>
+        <button type="button" class="btn btn-dark"><i class="fa-solid fa-user-clock"></i> Asistencia</button>
+    </div>
+    <br />
+    @if (Model.Usuario.Usuarios == null || Model.Usuario.Usuarios.Count == 0)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-warning" role="alert">
+                    <i class="fa-solid fa-triangle-exclamation" style="color: #c24e00;"></i> No existen registros
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <table class="table  table-dark table-hover table-striped table-bordered table-responsive" id="table_grupos">
+            <thead>
+                <tr class="table-secondary">
+                    <td class="text-center">Detalle</td>
+                    <td style="display :none;">id</td>
+                    <td class="text-center">Nombre</td>
+                    <td class="text-center">Apellido Paterno</td>
+                    <td class="text-center">Eliminar</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ML.Usuario usuario in Model.Usuario.Usuarios)
+                {
+                    <tr>
+                        <td style="text-align: center; vertical-align: middle;"><a class="btn btn-outline-primary" href="@Url.Action("AlumnoGetById", "Usuario", new { IdUsuario = usuario.IdUsuario })"><i class="fa-solid fa-circle-info"></i></a></td>
+                        <td style="display :none;">@usuario.IdUsuario </td>
+                        <td class="text-center">@usuario.Nombre</td>
+                        <td class="text-center">@usuario.ApellidoPaterno</td>
+                        <td style="text-align: center; vertical-align: middle;"><a class="btn btn-outline-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "MateriaController1", new { IdUsuario = usuario.IdUsuario})" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"><i class="fa-solid fa-eraser"></i></a></td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    }
+</div>
+
+

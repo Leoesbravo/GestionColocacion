@@ -1,0 +1,660 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GestionEntrenamientoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Grupo">
+          <Key>
+            <PropertyRef Name="IdGrupo" />
+          </Key>
+          <Property Name="IdGrupo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FechaIngreso" Type="date" />
+          <Property Name="FechaEgreso" Type="date" />
+          <Property Name="IdTipoGrupo" Type="int" />
+          <Property Name="IdStatus" Type="int" />
+        </EntityType>
+        <EntityType Name="GrupoCoach">
+          <Key>
+            <PropertyRef Name="IdGrupoCoach" />
+          </Key>
+          <Property Name="IdGrupoCoach" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdGrupo" Type="int" />
+          <Property Name="IdCoach" Type="int" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdRol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="IdStatus" />
+          </Key>
+          <Property Name="IdStatus" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TipoGrupo">
+          <Key>
+            <PropertyRef Name="IdTipoGrupo" />
+          </Key>
+          <Property Name="IdTipoGrupo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApellidoPaterno" Type="varchar" MaxLength="50" />
+          <Property Name="ApellidoMaterno" Type="varchar" MaxLength="50" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="IdRol" Type="int" />
+        </EntityType>
+        <EntityType Name="UsuarioGrupo">
+          <Key>
+            <PropertyRef Name="IdUsuarioGrupo" />
+          </Key>
+          <Property Name="IdUsuarioGrupo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" />
+          <Property Name="IdGrupo" Type="int" />
+        </EntityType>
+        <Association Name="FK__Grupo__IdStatus__24927208">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Grupo" Type="Self.Grupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="IdStatus" />
+            </Principal>
+            <Dependent Role="Grupo">
+              <PropertyRef Name="IdStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Grupo__IdTipoGru__173876EA">
+          <End Role="TipoGrupo" Type="Self.TipoGrupo" Multiplicity="0..1" />
+          <End Role="Grupo" Type="Self.Grupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoGrupo">
+              <PropertyRef Name="IdTipoGrupo" />
+            </Principal>
+            <Dependent Role="Grupo">
+              <PropertyRef Name="IdTipoGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GrupoCoac__IdCoa__2F10007B">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="GrupoCoach" Type="Self.GrupoCoach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="GrupoCoach">
+              <PropertyRef Name="IdCoach" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GrupoCoac__IdGru__2E1BDC42">
+          <End Role="Grupo" Type="Self.Grupo" Multiplicity="0..1" />
+          <End Role="GrupoCoach" Type="Self.GrupoCoach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grupo">
+              <PropertyRef Name="IdGrupo" />
+            </Principal>
+            <Dependent Role="GrupoCoach">
+              <PropertyRef Name="IdGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__IdRol__1ED998B2">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsuarioGr__IdGru__2B3F6F97">
+          <End Role="Grupo" Type="Self.Grupo" Multiplicity="0..1" />
+          <End Role="UsuarioGrupo" Type="Self.UsuarioGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grupo">
+              <PropertyRef Name="IdGrupo" />
+            </Principal>
+            <Dependent Role="UsuarioGrupo">
+              <PropertyRef Name="IdGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsuarioGr__IdUsu__2A4B4B5E">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="UsuarioGrupo" Type="Self.UsuarioGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="UsuarioGrupo">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AlumnoGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdUsuario" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GrupoAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FechaIngreso" Type="date" Mode="In" />
+          <Parameter Name="IdTipoGrupo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GrupoCambiarStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Idgrupo" Type="int" Mode="In" />
+          <Parameter Name="IdStatus" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GrupoGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GrupoGetAlumnosById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdGrupo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GrupoGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdGrupo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GrupoGetCoachById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdGrupo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="StatusGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="UsuarioAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="ApellidoPaterno" Type="varchar" Mode="In" />
+          <Parameter Name="ApellidoMaterno" Type="varchar" Mode="In" />
+          <Parameter Name="IdRol" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="GestionEntrenamientoModelStoreContainer">
+          <EntitySet Name="Grupo" EntityType="Self.Grupo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GrupoCoach" EntityType="Self.GrupoCoach" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoGrupo" EntityType="Self.TipoGrupo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuarioGrupo" EntityType="Self.UsuarioGrupo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Grupo__IdStatus__24927208" Association="Self.FK__Grupo__IdStatus__24927208">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Grupo" EntitySet="Grupo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Grupo__IdTipoGru__173876EA" Association="Self.FK__Grupo__IdTipoGru__173876EA">
+            <End Role="TipoGrupo" EntitySet="TipoGrupo" />
+            <End Role="Grupo" EntitySet="Grupo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GrupoCoac__IdCoa__2F10007B" Association="Self.FK__GrupoCoac__IdCoa__2F10007B">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="GrupoCoach" EntitySet="GrupoCoach" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GrupoCoac__IdGru__2E1BDC42" Association="Self.FK__GrupoCoac__IdGru__2E1BDC42">
+            <End Role="Grupo" EntitySet="Grupo" />
+            <End Role="GrupoCoach" EntitySet="GrupoCoach" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__IdRol__1ED998B2" Association="Self.FK__Usuario__IdRol__1ED998B2">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsuarioGr__IdGru__2B3F6F97" Association="Self.FK__UsuarioGr__IdGru__2B3F6F97">
+            <End Role="Grupo" EntitySet="Grupo" />
+            <End Role="UsuarioGrupo" EntitySet="UsuarioGrupo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsuarioGr__IdUsu__2A4B4B5E" Association="Self.FK__UsuarioGr__IdUsu__2A4B4B5E">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="UsuarioGrupo" EntitySet="UsuarioGrupo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GestionEntrenamientoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Grupo">
+          <Key>
+            <PropertyRef Name="IdGrupo" />
+          </Key>
+          <Property Name="IdGrupo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FechaIngreso" Type="DateTime" Precision="0" />
+          <Property Name="FechaEgreso" Type="DateTime" Precision="0" />
+          <Property Name="IdTipoGrupo" Type="Int32" />
+          <Property Name="IdStatus" Type="Int32" />
+          <NavigationProperty Name="Status" Relationship="Self.FK__Grupo__IdStatus__24927208" FromRole="Grupo" ToRole="Status" />
+          <NavigationProperty Name="TipoGrupo" Relationship="Self.FK__Grupo__IdTipoGru__173876EA" FromRole="Grupo" ToRole="TipoGrupo" />
+          <NavigationProperty Name="GrupoCoaches" Relationship="GestionEntrenamientoModel.FK__GrupoCoac__IdGru__2E1BDC42" FromRole="Grupo" ToRole="GrupoCoach" />
+          <NavigationProperty Name="UsuarioGrupoes" Relationship="GestionEntrenamientoModel.FK__UsuarioGr__IdGru__2B3F6F97" FromRole="Grupo" ToRole="UsuarioGrupo" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK__Usuario__IdRol__1ED998B2" FromRole="Rol" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="IdStatus" />
+          </Key>
+          <Property Name="IdStatus" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Grupoes" Relationship="Self.FK__Grupo__IdStatus__24927208" FromRole="Status" ToRole="Grupo" />
+        </EntityType>
+        <EntityType Name="TipoGrupo">
+          <Key>
+            <PropertyRef Name="IdTipoGrupo" />
+          </Key>
+          <Property Name="IdTipoGrupo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Grupoes" Relationship="Self.FK__Grupo__IdTipoGru__173876EA" FromRole="TipoGrupo" ToRole="Grupo" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApellidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdRol" Type="Int32" />
+          <NavigationProperty Name="Rol" Relationship="Self.FK__Usuario__IdRol__1ED998B2" FromRole="Usuario" ToRole="Rol" />
+          <NavigationProperty Name="GrupoCoaches" Relationship="GestionEntrenamientoModel.FK__GrupoCoac__IdCoa__2F10007B" FromRole="Usuario" ToRole="GrupoCoach" />
+          <NavigationProperty Name="UsuarioGrupoes" Relationship="GestionEntrenamientoModel.FK__UsuarioGr__IdUsu__2A4B4B5E" FromRole="Usuario" ToRole="UsuarioGrupo" />
+        </EntityType>
+        <Association Name="FK__Grupo__IdStatus__24927208">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Grupo" Type="Self.Grupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="IdStatus" />
+            </Principal>
+            <Dependent Role="Grupo">
+              <PropertyRef Name="IdStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Grupo__IdTipoGru__173876EA">
+          <End Role="TipoGrupo" Type="Self.TipoGrupo" Multiplicity="0..1" />
+          <End Role="Grupo" Type="Self.Grupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoGrupo">
+              <PropertyRef Name="IdTipoGrupo" />
+            </Principal>
+            <Dependent Role="Grupo">
+              <PropertyRef Name="IdTipoGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__IdRol__1ED998B2">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GestionEntrenamientoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Grupoes" EntityType="Self.Grupo" />
+          <EntitySet Name="Rols" EntityType="Self.Rol" />
+          <EntitySet Name="Status" EntityType="Self.Status" />
+          <EntitySet Name="TipoGrupoes" EntityType="Self.TipoGrupo" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK__Grupo__IdStatus__24927208" Association="Self.FK__Grupo__IdStatus__24927208">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Grupo" EntitySet="Grupoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Grupo__IdTipoGru__173876EA" Association="Self.FK__Grupo__IdTipoGru__173876EA">
+            <End Role="TipoGrupo" EntitySet="TipoGrupoes" />
+            <End Role="Grupo" EntitySet="Grupoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__IdRol__1ED998B2" Association="Self.FK__Usuario__IdRol__1ED998B2">
+            <End Role="Rol" EntitySet="Rols" />
+            <End Role="Usuario" EntitySet="Usuarios" />
+          </AssociationSet>
+          <FunctionImport Name="GrupoAdd">
+            <Parameter Name="FechaIngreso" Mode="In" Type="DateTime" />
+            <Parameter Name="IdTipoGrupo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GrupoGetAll" ReturnType="Collection(GestionEntrenamientoModel.GrupoGetAll_Result)" />
+          <FunctionImport Name="UsuarioAdd">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+            <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+            <Parameter Name="IdRol" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="StatusGetAll" ReturnType="Collection(GestionEntrenamientoModel.StatusGetAll_Result)" />
+          <FunctionImport Name="GrupoCambiarStatus">
+            <Parameter Name="Idgrupo" Mode="In" Type="Int32" />
+            <Parameter Name="IdStatus" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="GrupoCoaches" EntityType="GestionEntrenamientoModel.GrupoCoach" />
+          <EntitySet Name="UsuarioGrupoes" EntityType="GestionEntrenamientoModel.UsuarioGrupo" />
+          <AssociationSet Name="FK__GrupoCoac__IdGru__2E1BDC42" Association="GestionEntrenamientoModel.FK__GrupoCoac__IdGru__2E1BDC42">
+            <End Role="Grupo" EntitySet="Grupoes" />
+            <End Role="GrupoCoach" EntitySet="GrupoCoaches" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsuarioGr__IdGru__2B3F6F97" Association="GestionEntrenamientoModel.FK__UsuarioGr__IdGru__2B3F6F97">
+            <End Role="Grupo" EntitySet="Grupoes" />
+            <End Role="UsuarioGrupo" EntitySet="UsuarioGrupoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GrupoCoac__IdCoa__2F10007B" Association="GestionEntrenamientoModel.FK__GrupoCoac__IdCoa__2F10007B">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="GrupoCoach" EntitySet="GrupoCoaches" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsuarioGr__IdUsu__2A4B4B5E" Association="GestionEntrenamientoModel.FK__UsuarioGr__IdUsu__2A4B4B5E">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="UsuarioGrupo" EntitySet="UsuarioGrupoes" />
+          </AssociationSet>
+          <FunctionImport Name="GrupoGetAlumnosById" ReturnType="Collection(GestionEntrenamientoModel.GrupoGetAlumnosById_Result)">
+          <Parameter Name="IdGrupo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GrupoGetCoachById" ReturnType="Collection(GestionEntrenamientoModel.GrupoGetCoachById_Result)">
+          <Parameter Name="IdGrupo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GrupoGetById" ReturnType="Collection(GestionEntrenamientoModel.GrupoGetById_Result)">
+          <Parameter Name="IdGrupo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AlumnoGetById" ReturnType="Collection(GestionEntrenamientoModel.AlumnoGetById_Result)">
+            <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GrupoGetAll_Result">
+          <Property Type="Int32" Name="IdGrupo" Nullable="false" />
+          <Property Type="DateTime" Name="FechaIngreso" Nullable="true" />
+          <Property Type="DateTime" Name="FechaEgreso" Nullable="true" />
+          <Property Type="Int32" Name="IdTipoGrupo" Nullable="true" />
+          <Property Type="String" Name="Tipo" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IdStatus" Nullable="true" />
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="StatusGetAll_Result">
+          <Property Type="Int32" Name="IdStatus" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <EntityType Name="GrupoCoach">
+          <Key>
+            <PropertyRef Name="IdGrupoCoach" />
+          </Key>
+          <Property Name="IdGrupoCoach" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdGrupo" Type="Int32" />
+          <Property Name="IdCoach" Type="Int32" />
+          <NavigationProperty Name="Grupo" Relationship="GestionEntrenamientoModel.FK__GrupoCoac__IdGru__2E1BDC42" FromRole="GrupoCoach" ToRole="Grupo" />
+          <NavigationProperty Name="Usuario" Relationship="GestionEntrenamientoModel.FK__GrupoCoac__IdCoa__2F10007B" FromRole="GrupoCoach" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="UsuarioGrupo">
+          <Key>
+            <PropertyRef Name="IdUsuarioGrupo" />
+          </Key>
+          <Property Name="IdUsuarioGrupo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUsuario" Type="Int32" />
+          <Property Name="IdGrupo" Type="Int32" />
+          <NavigationProperty Name="Grupo" Relationship="GestionEntrenamientoModel.FK__UsuarioGr__IdGru__2B3F6F97" FromRole="UsuarioGrupo" ToRole="Grupo" />
+          <NavigationProperty Name="Usuario" Relationship="GestionEntrenamientoModel.FK__UsuarioGr__IdUsu__2A4B4B5E" FromRole="UsuarioGrupo" ToRole="Usuario" />
+        </EntityType>
+        <Association Name="FK__GrupoCoac__IdGru__2E1BDC42">
+          <End Type="GestionEntrenamientoModel.Grupo" Role="Grupo" Multiplicity="0..1" />
+          <End Type="GestionEntrenamientoModel.GrupoCoach" Role="GrupoCoach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grupo">
+              <PropertyRef Name="IdGrupo" />
+            </Principal>
+            <Dependent Role="GrupoCoach">
+              <PropertyRef Name="IdGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsuarioGr__IdGru__2B3F6F97">
+          <End Type="GestionEntrenamientoModel.Grupo" Role="Grupo" Multiplicity="0..1" />
+          <End Type="GestionEntrenamientoModel.UsuarioGrupo" Role="UsuarioGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grupo">
+              <PropertyRef Name="IdGrupo" />
+            </Principal>
+            <Dependent Role="UsuarioGrupo">
+              <PropertyRef Name="IdGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GrupoCoac__IdCoa__2F10007B">
+          <End Type="GestionEntrenamientoModel.Usuario" Role="Usuario" Multiplicity="0..1" />
+          <End Type="GestionEntrenamientoModel.GrupoCoach" Role="GrupoCoach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="GrupoCoach">
+              <PropertyRef Name="IdCoach" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsuarioGr__IdUsu__2A4B4B5E">
+          <End Type="GestionEntrenamientoModel.Usuario" Role="Usuario" Multiplicity="0..1" />
+          <End Type="GestionEntrenamientoModel.UsuarioGrupo" Role="UsuarioGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="UsuarioGrupo">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="GrupoGetAlumnosById_Result">
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ApellidoPaterno" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IdRol" Nullable="true" />
+          <Property Type="Int32" Name="IdGrupo" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GrupoGetCoachById_Result">
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ApellidoPaterno" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IdRol" Nullable="true" />
+          <Property Type="Int32" Name="IdGrupo" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GrupoGetById_Result">
+          <Property Type="Int32" Name="IdGrupo" Nullable="false" />
+          <Property Type="DateTime" Name="FechaIngreso" Nullable="true" />
+          <Property Type="DateTime" Name="FechaEgreso" Nullable="true" />
+          <Property Type="Int32" Name="IdTipoGrupo" Nullable="true" />
+          <Property Type="String" Name="Tipo" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IdStatus" Nullable="true" />
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="AlumnoGetById_Result">
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ApellidoPaterno" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IdRol" Nullable="true" />
+          <Property Type="String" Name="Rol" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="FechaIngreso" Nullable="true" />
+          <Property Type="DateTime" Name="FechaEgreso" Nullable="true" />
+          <Property Type="Int32" Name="IdTipoGrupo" Nullable="false" />
+          <Property Type="String" Name="Grupo" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IdGrupo" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GestionEntrenamientoModelStoreContainer" CdmEntityContainer="GestionEntrenamientoEntities">
+          <EntitySetMapping Name="Grupoes">
+            <EntityTypeMapping TypeName="GestionEntrenamientoModel.Grupo">
+              <MappingFragment StoreEntitySet="Grupo">
+                <ScalarProperty Name="IdGrupo" ColumnName="IdGrupo" />
+                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+                <ScalarProperty Name="FechaEgreso" ColumnName="FechaEgreso" />
+                <ScalarProperty Name="IdTipoGrupo" ColumnName="IdTipoGrupo" />
+                <ScalarProperty Name="IdStatus" ColumnName="IdStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rols">
+            <EntityTypeMapping TypeName="GestionEntrenamientoModel.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="GestionEntrenamientoModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="IdStatus" ColumnName="IdStatus" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoGrupoes">
+            <EntityTypeMapping TypeName="GestionEntrenamientoModel.TipoGrupo">
+              <MappingFragment StoreEntitySet="TipoGrupo">
+                <ScalarProperty Name="IdTipoGrupo" ColumnName="IdTipoGrupo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="GestionEntrenamientoModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GrupoAdd" FunctionName="GestionEntrenamientoModel.Store.GrupoAdd" />
+          <FunctionImportMapping FunctionImportName="GrupoGetAll" FunctionName="GestionEntrenamientoModel.Store.GrupoGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GestionEntrenamientoModel.GrupoGetAll_Result">
+                <ScalarProperty Name="IdGrupo" ColumnName="IdGrupo" />
+                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+                <ScalarProperty Name="FechaEgreso" ColumnName="FechaEgreso" />
+                <ScalarProperty Name="IdTipoGrupo" ColumnName="IdTipoGrupo" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="IdStatus" ColumnName="IdStatus" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UsuarioAdd" FunctionName="GestionEntrenamientoModel.Store.UsuarioAdd" />
+          <FunctionImportMapping FunctionImportName="StatusGetAll" FunctionName="GestionEntrenamientoModel.Store.StatusGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GestionEntrenamientoModel.StatusGetAll_Result">
+                <ScalarProperty Name="IdStatus" ColumnName="IdStatus" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GrupoCambiarStatus" FunctionName="GestionEntrenamientoModel.Store.GrupoCambiarStatus" />
+          <EntitySetMapping Name="GrupoCoaches">
+            <EntityTypeMapping TypeName="GestionEntrenamientoModel.GrupoCoach">
+              <MappingFragment StoreEntitySet="GrupoCoach">
+                <ScalarProperty Name="IdCoach" ColumnName="IdCoach" />
+                <ScalarProperty Name="IdGrupo" ColumnName="IdGrupo" />
+                <ScalarProperty Name="IdGrupoCoach" ColumnName="IdGrupoCoach" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuarioGrupoes">
+            <EntityTypeMapping TypeName="GestionEntrenamientoModel.UsuarioGrupo">
+              <MappingFragment StoreEntitySet="UsuarioGrupo">
+                <ScalarProperty Name="IdGrupo" ColumnName="IdGrupo" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdUsuarioGrupo" ColumnName="IdUsuarioGrupo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GrupoGetAlumnosById" FunctionName="GestionEntrenamientoModel.Store.GrupoGetAlumnosById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GestionEntrenamientoModel.GrupoGetAlumnosById_Result">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="IdGrupo" ColumnName="IdGrupo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GrupoGetCoachById" FunctionName="GestionEntrenamientoModel.Store.GrupoGetCoachById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GestionEntrenamientoModel.GrupoGetCoachById_Result">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="IdGrupo" ColumnName="IdGrupo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GrupoGetById" FunctionName="GestionEntrenamientoModel.Store.GrupoGetById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GestionEntrenamientoModel.GrupoGetById_Result">
+                <ScalarProperty Name="IdGrupo" ColumnName="IdGrupo" />
+                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+                <ScalarProperty Name="FechaEgreso" ColumnName="FechaEgreso" />
+                <ScalarProperty Name="IdTipoGrupo" ColumnName="IdTipoGrupo" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="IdStatus" ColumnName="IdStatus" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="AlumnoGetById" FunctionName="GestionEntrenamientoModel.Store.AlumnoGetById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GestionEntrenamientoModel.AlumnoGetById_Result">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+                <ScalarProperty Name="FechaEgreso" ColumnName="FechaEgreso" />
+                <ScalarProperty Name="IdTipoGrupo" ColumnName="IdTipoGrupo" />
+                <ScalarProperty Name="Grupo" ColumnName="Grupo" />
+                <ScalarProperty Name="IdGrupo" ColumnName="IdGrupo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
